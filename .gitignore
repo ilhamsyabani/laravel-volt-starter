@@ -1,0 +1,37 @@
+# OS and IDE files
+/.DS_Store
+/.idea/
+/.vscode/
+*.swp
+*.swo
+*~
+
+# Composer
+/vendor/
+composer.lock
+composer.phar
+
+# Testing
+.phpunit.result.cache
+/coverage/
+/.phpunit.cache/
+
+# Pint
+/.pint/
+
+# Node
+/node_modules/
+/npm-debug.log*
+/yarn-error.log*
+
+# Environment
+.env
+.env.backup
+.env.production
+.phpunit.result.cache
+
+# IDE
+*.sublime-*
+
+# OS
+Thumbs.db
