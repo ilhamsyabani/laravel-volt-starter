@@ -2,6 +2,7 @@
 
 namespace Ilhamsyabani\VoltStarter;
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Folio\Folio;
 use Livewire\Volt\Volt;
@@ -213,6 +214,13 @@ class VoltStarterServiceProvider extends PackageServiceProvider
             return;
         }
 
+        $pagesPath = resource_path('views/pages');
+
+        // Only load Folio routes if pages directory exists
+        if (!is_dir($pagesPath)) {
+            return;
+        }
+
         $folioRouteFile = base_path('routes/folio.php');
 
         if (file_exists($folioRouteFile)) {
@@ -220,7 +228,7 @@ class VoltStarterServiceProvider extends PackageServiceProvider
                 ->group(fn () => require $folioRouteFile);
         } else {
             Route::middleware(['web'])
-                ->group(fn () => Folio::route(resource_path('views/pages')));
+                ->group(fn () => Folio::route($pagesPath));
         }
     }
 
@@ -232,17 +240,9 @@ class VoltStarterServiceProvider extends PackageServiceProvider
         /** @var \Illuminate\Routing\Router $router */
         $router = $this->app['router'];
 
-        // Only register if not already registered
-        if (!$router->hasMiddlewareAlias('role')) {
-            $router->aliasMiddleware('role', \App\Http\Middleware\EnsureUserHasRole::class);
-        }
-
-        if (!$router->hasMiddlewareAlias('owner')) {
-            $router->aliasMiddleware('owner', \App\Http\Middleware\EnsureUserIsOwner::class);
-        }
-
-        if (!$router->hasMiddlewareAlias('can')) {
-            $router->aliasMiddleware('can', \App\Http\Middleware\EnsureUserHasPermission::class);
-        }
+        // Register middleware aliases using aliasMiddleware method
+        $router->aliasMiddleware('role', \App\Http\Middleware\EnsureUserHasRole::class);
+        $router->aliasMiddleware('owner', \App\Http\Middleware\EnsureUserIsOwner::class);
+        $router->aliasMiddleware('can', \App\Http\Middleware\EnsureUserHasPermission::class);
     }
 }
