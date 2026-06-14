@@ -59,6 +59,9 @@ class VoltStarterServiceProvider extends PackageServiceProvider
      */
     public function register(): void
     {
+        // Call parent register first to configure the package
+        parent::register();
+
         // Load helpers
         $this->loadHelpers();
 
@@ -82,6 +85,9 @@ class VoltStarterServiceProvider extends PackageServiceProvider
 
         // Register middleware aliases
         $this->registerMiddlewareAliases();
+
+        // Call parent boot to ensure commands are registered
+        parent::boot();
     }
 
     /**
