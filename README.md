@@ -408,7 +408,7 @@ $delete = function (User $user) {
 ```php
 // routes/folio.php
 use Illuminate\Support\Facades\Route;
-use Laravel\Folio\Facades\Folio;
+use Laravel\Folio\Folio;
 
 // Load all pages from resources/views/pages/
 Folio::route('/');

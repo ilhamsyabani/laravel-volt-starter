@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Laravel\Folio\Facades\Folio;
+use Laravel\Folio\Folio;
 
 /*
 |--------------------------------------------------------------------------
