@@ -36,3 +36,4 @@ composer.phar
 
 # OS
 Thumbs.db
+composer.lock
