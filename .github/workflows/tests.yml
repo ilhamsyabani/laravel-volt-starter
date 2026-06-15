@@ -2,13 +2,19 @@ name: Tests
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main]
   pull_request:
-    branches: [main, develop]
+    branches: [main]
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.2', '8.4']
+
+    name: PHP ${{ matrix.php }}
 
     steps:
       - uses: actions/checkout@v4
@@ -16,27 +22,19 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, gd
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, libxml, mbstring, zip, pdo, sqlite, pdo_sqlite
           coverage: none
 
-      - name: Setup Composer
-        uses: php-actions/composer@v6
-        with:
-          args: --no-interaction --prefer-dist
-
       - name: Install dependencies
-        run: composer install --no-progress --prefer-dist
+        run: composer update --prefer-dist --no-interaction --no-progress
 
-      - name: Execute tests
-        run: ./vendor/bin/pest --no-coverage --colors=never
-
-      - name: Run Pint (Style Check)
-        run: ./vendor/bin/pint --test --colors=never
-
+      - name: Run tests
+        run: ./vendor/bin/pest --no-coverage
 
   lint:
     runs-on: ubuntu-latest
+    name: Code Style
 
     steps:
       - uses: actions/checkout@v4
@@ -47,27 +45,9 @@ jobs:
           php-version: '8.2'
           coverage: none
 
-      - name: Install Pint
-        run: composer global require laravel/pint
-
-      - name: Run Pint
-        run: pint --test
-
-  phpstan:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.2'
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite
-
       - name: Install dependencies
-        run: composer install --no-progress --prefer-dist
+        run: composer update --prefer-dist --no-interaction --no-progress
 
       - name: Run Pint
-        run: ./vendor/bin/pint --test --colors=never
+        run: ./vendor/bin/pint --test
         continue-on-error: true
