@@ -1,23 +1,11 @@
 {
     "name": "ilhamsyabani/laravel-volt-starter",
-    "version": "1.1.0",
-    "description": "A modern Laravel starter kit using Livewire Volt, Laravel Folio, and Tailwind CSS — 27+ UI components, theming system, CRUD generators, and preset templates.",
+    "description": "A modern Laravel starter kit using Livewire Volt, Laravel Folio, and Tailwind CSS — 20+ UI components, theming system, CRUD generators included.",
     "keywords": [
-        "laravel",
-        "livewire",
-        "volt",
-        "folio",
-        "tailwind",
-        "ui-kit",
-        "starter-kit",
-        "boilerplate",
-        "theme",
-        "blade",
-        "php",
-        "components",
-        "crud",
-        "admin",
-        "dashboard"
+        "laravel", "livewire", "volt", "folio",
+        "tailwind", "ui-kit", "starter-kit",
+        "boilerplate", "theme", "blade", "php",
+        "components", "crud", "admin", "dashboard"
     ],
     "homepage": "https://github.com/ilhamsyabani/laravel-volt-starter",
     "license": "MIT",
@@ -35,18 +23,20 @@
     "require": {
         "php": "^8.2",
         "laravel/framework": "^11.0|^12.0|^13.0",
-        "livewire/livewire": "^3.0",
-        "livewire/volt": "^1.10",
-        "laravel/folio": "^1.0",
         "blade-ui-kit/blade-icons": "^1.6",
         "spatie/laravel-package-tools": "^1.16"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
         "nunomaduro/collision": "^8.0",
-        "orchestra/testbench": "^9.20|^10.11|^11.2",
+        "orchestra/testbench": "^9.0|^10.0|^11.0",
         "pestphp/pest": "^3.0",
         "pestphp/pest-plugin-laravel": "^3.0"
+    },
+    "suggest": {
+        "livewire/livewire": "Required for Volt components (^3.0)",
+        "livewire/volt": "Required for single-file Volt components (^1.0)",
+        "laravel/folio": "Required for file-based routing (^1.0)"
     },
     "autoload": {
         "psr-4": {
