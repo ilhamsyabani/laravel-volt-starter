@@ -22,7 +22,7 @@ trait Sortable
     /**
      * Apply sorting to query.
      */
-    protected function applySort(Builder $query): Builder
+    public function applySort(Builder $query): Builder
     {
         $field = $this->sortField ?? 'created_at';
         $direction = $this->sortDirection ?? 'desc';

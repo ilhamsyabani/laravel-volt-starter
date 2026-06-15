@@ -21,24 +21,24 @@ use Laravel\Folio\Folio;
 |   middleware(['auth', 'verified']);
 |
 | Atau gunakan group middleware di sini:
-|   Route::middleware(['auth'])->group(fn () => Folio::route('/dashboard'));
+|   Route::middleware(['auth'])->group(fn () => Folio::route(resource_path('views/pages/dashboard'), uri: '/dashboard'));
 |
 */
 
 // Home / Landing Page
-Folio::route('/');
+Folio::route(resource_path('views/pages'));
 
 // Dashboard (protected)
-Route::middleware(['auth', 'verified'])->group(fn () => Folio::route('/dashboard'));
+Route::middleware(['auth', 'verified'])->group(fn () => Folio::route(resource_path('views/pages/dashboard'), uri: '/dashboard'));
 
 // Authentication Pages
-Route::middleware(['guest'])->group(fn () => Folio::route('/auth'));
+Route::middleware(['guest'])->group(fn () => Folio::route(resource_path('views/pages/auth'), uri: '/auth'));
 
 // Settings (protected)
-Route::middleware(['auth', 'verified'])->group(fn () => Folio::route('/settings'));
+Route::middleware(['auth', 'verified'])->group(fn () => Folio::route(resource_path('views/pages/settings'), uri: '/settings'));
 
 // Admin Pages (role-based)
-Route::middleware(['auth', 'verified', 'role:admin'])->group(fn () => Folio::route('/admin'));
+Route::middleware(['auth', 'verified', 'role:admin'])->group(fn () => Folio::route(resource_path('views/pages/admin'), uri: '/admin'));
 
 // API Routes (exclude from Folio)
 Route::prefix('api')->group(base_path('routes/api.php'));

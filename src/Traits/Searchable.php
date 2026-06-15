@@ -24,7 +24,7 @@ trait Searchable
      * Apply search filter to query.
      * Override this method to customize search fields.
      */
-    protected function applySearch(Builder $query): Builder
+    public function applySearch(Builder $query): Builder
     {
         $search = $this->search ?? '';
 
@@ -40,7 +40,7 @@ trait Searchable
     /**
      * Apply search with multiple fields.
      */
-    protected function applySearchWith(array $fields, Builder $query): Builder
+    public function applySearchWith(array $fields, Builder $query): Builder
     {
         $search = $this->search ?? '';
 
@@ -58,7 +58,7 @@ trait Searchable
     /**
      * Apply search with relationship.
      */
-    protected function applySearchWithRelation(
+    public function applySearchWithRelation(
         string $relation,
         array $fields,
         Builder $query

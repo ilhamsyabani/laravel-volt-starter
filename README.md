@@ -411,13 +411,13 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Folio\Folio;
 
 // Load all pages from resources/views/pages/
-Folio::route('/');
+Folio::route(resource_path('views/pages'));
 
-// Protected routes
-Route::middleware(['auth', 'verified'])->group(fn () => Folio::route('/dashboard'));
+// Protected routes (sub-folder mapping)
+Route::middleware(['auth', 'verified'])->group(fn () => Folio::route(resource_path('views/pages/dashboard'), uri: '/dashboard'));
 
-// Admin routes
-Route::middleware(['auth', 'role:admin'])->group(fn () => Folio::route('/admin'));
+// Admin routes (sub-folder mapping)
+Route::middleware(['auth', 'role:admin'])->group(fn () => Folio::route(resource_path('views/pages/admin'), uri: '/admin'));
 ```
 
 ---
