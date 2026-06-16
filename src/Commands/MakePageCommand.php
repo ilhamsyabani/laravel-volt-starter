@@ -57,7 +57,7 @@ state([]);
 
 ?>
 
-<x-layouts.app>
+<x-layouts.app title="{$title}">
     <div>
         <h1>{$title}</h1>
     </div>
@@ -91,7 +91,7 @@ mount(function () {
 
 ?>
 
-<x-layouts.app>
+<x-layouts.app title="{$title}">
     <div class="space-y-6">
 
         {{-- Page Header --}}
@@ -100,29 +100,31 @@ mount(function () {
                 <h1 class="text-2xl font-bold text-zinc-900 dark:text-white">{$title}</h1>
                 <p class="mt-1 text-sm text-zinc-500">Manage your {$title} here.</p>
             </div>
-            <flux:button variant="primary" icon="plus">
+            <x-ui.button icon="plus">
                 Add New
-            </flux:button>
+            </x-ui.button>
         </div>
 
         {{-- Search --}}
-        <flux:input
+        <x-ui.input
             wire:model.live.debounce.300ms="search"
             placeholder="Search..."
             icon="magnifying-glass"
         />
 
         {{-- Content --}}
-        <div class="rounded-xl border border-zinc-200 dark:border-zinc-700">
-            @forelse (\$this->items as \$item)
-                <div class="p-4 border-b border-zinc-100 dark:border-zinc-800 last:border-0">
-                    {{ \$item }}
-                </div>
-            @empty
-                <div class="p-8 text-center text-zinc-400">
-                    No items found.
-                </div>
-            @endforelse
+        <div class="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 overflow-hidden">
+            <div class="divide-y divide-zinc-100 dark:divide-zinc-800">
+                @forelse (\$this->items as \$item)
+                    <div class="p-4">
+                        {{ \$item }}
+                    </div>
+                @empty
+                    <div class="p-8 text-center text-zinc-400">
+                        No items found.
+                    </div>
+                @endforelse
+            </div>
         </div>
 
     </div>

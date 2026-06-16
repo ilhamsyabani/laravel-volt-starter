@@ -1,6 +1,6 @@
 @props([
     'colspan' => null,    // jika diisi, render sebagai <tr><td colspan>
-    'icon'    => 'inbox',
+    'icon'    => 'ph-tray',
     'title'   => 'No data found',
     'message' => null,
 ])

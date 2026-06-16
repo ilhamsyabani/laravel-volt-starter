@@ -35,11 +35,11 @@
             {{-- Previous --}}
             @if ($paginator->onFirstPage())
                 <span class="inline-flex items-center justify-center w-9 h-9 rounded-[var(--vs-radius)] text-zinc-300 dark:text-zinc-600 cursor-not-allowed">
-                    @svg('chevron-left', 'w-4 h-4')
+                    @svg('ph-caret-left', 'w-4 h-4')
                 </span>
             @else
                 <button wire:click="previousPage" class="inline-flex items-center justify-center w-9 h-9 rounded-[var(--vs-radius)] text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition" aria-label="Previous page">
-                    @svg('chevron-left', 'w-4 h-4')
+                    @svg('ph-caret-left', 'w-4 h-4')
                 </button>
             @endif
 
@@ -59,11 +59,11 @@
             {{-- Next --}}
             @if ($paginator->hasMorePages())
                 <button wire:click="nextPage" class="inline-flex items-center justify-center w-9 h-9 rounded-[var(--vs-radius)] text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition" aria-label="Next page">
-                    @svg('chevron-right', 'w-4 h-4')
+                    @svg('ph-caret-right', 'w-4 h-4')
                 </button>
             @else
                 <span class="inline-flex items-center justify-center w-9 h-9 rounded-[var(--vs-radius)] text-zinc-300 dark:text-zinc-600 cursor-not-allowed">
-                    @svg('chevron-right', 'w-4 h-4')
+                    @svg('ph-caret-right', 'w-4 h-4')
                 </span>
             @endif
         </div>

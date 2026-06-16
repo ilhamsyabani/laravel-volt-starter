@@ -1,5 +1,5 @@
 @props([
-    'icon'    => 'inbox',
+    'icon'    => 'ph-tray',
     'title'   => 'No data found',
     'message' => null,
 ])

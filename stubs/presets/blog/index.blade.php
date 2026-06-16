@@ -19,7 +19,7 @@ $posts = computed(function () {
 
 ?>
 
-<x-layouts.app>
+<x-layouts.app title="Blog">
     <div class="space-y-6">
 
         {{-- Header --}}
@@ -28,7 +28,7 @@ $posts = computed(function () {
                 <h1 class="text-2xl font-bold text-zinc-900 dark:text-white">Blog</h1>
                 <p class="mt-1 text-sm text-zinc-500">Manage your blog posts</p>
             </div>
-            <x-ui.button icon="plus" href="/blog/create">
+            <x-ui.button icon="ph-plus" href="/blog/create">
                 New Post
             </x-ui.button>
         </div>
@@ -37,7 +37,7 @@ $posts = computed(function () {
         <x-ui.input
             wire:model.live.debounce.300ms="search"
             placeholder="Search posts..."
-            icon="magnifying-glass"
+            icon="ph-magnifying-glass"
         />
 
         {{-- Posts Grid --}}
@@ -49,7 +49,7 @@ $posts = computed(function () {
                             <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="w-full h-full object-cover rounded-t-lg">
                         @else
                             <div class="w-full h-full flex items-center justify-center text-zinc-400">
-                                @svg('photo', 'w-12 h-12')
+                                @svg('ph-image', 'w-12 h-12')
                             </div>
                         @endif
                     </div>
@@ -69,7 +69,7 @@ $posts = computed(function () {
                                 <x-ui.avatar :name="$post->author->name ?? 'U'" size="xs" />
                                 <span class="text-xs text-zinc-500">{{ $post->author->name ?? 'Unknown' }}</span>
                             </div>
-                            <x-ui.button size="sm" variant="ghost" href="/blog/{{ $post->id }}/edit" wire:navigate icon="pencil">
+                            <x-ui.button size="sm" variant="ghost" href="/blog/{{ $post->id }}/edit" wire:navigate icon="ph-pencil">
                                 Edit
                             </x-ui.button>
                         </div>
@@ -77,7 +77,7 @@ $posts = computed(function () {
                 </x-ui.card>
             @empty
                 <div class="col-span-full">
-                    <x-ui.empty-state icon="document-text" title="No posts yet" subtitle="Create your first blog post to get started.">
+                    <x-ui.empty-state icon="ph-article" title="No posts yet" subtitle="Create your first blog post to get started.">
                         <x-slot:actions>
                             <x-ui.button href="/blog/create">Create Post</x-ui.button>
                         </x-slot:actions>

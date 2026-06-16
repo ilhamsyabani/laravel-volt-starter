@@ -33,9 +33,7 @@
                 {{ config('app.name', 'Laravel') }}
             </span>
             <button @click="open = false" class="ml-auto lg:hidden p-1 text-zinc-400 hover:text-zinc-600" aria-label="Close menu">
-                <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                    <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"/>
-                </svg>
+                @svg('ph-x', 'w-5 h-5')
             </button>
         </div>
 
@@ -47,7 +45,7 @@
                 wire:navigate
                 class="flex items-center gap-3 rounded-[var(--vs-radius)] px-3 py-2 text-sm font-medium transition {{ request()->routeIs('dashboard') ? 'vs-bg-primary-light vs-text-primary' : 'text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800' }}"
             >
-                @svg('home', 'w-4 h-4')
+                @svg('ph-house', 'w-4 h-4')
                 Dashboard
             </a>
 
@@ -59,7 +57,7 @@
                     wire:navigate
                     class="flex items-center gap-3 rounded-[var(--vs-radius)] px-3 py-2 text-sm font-medium transition {{ request()->is('users*') ? 'vs-bg-primary-light vs-text-primary' : 'text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800' }}"
                 >
-                    @svg('users', 'w-4 h-4')
+                    @svg('ph-users', 'w-4 h-4')
                     Users
                 </a>
 
@@ -68,7 +66,7 @@
                     wire:navigate
                     class="flex items-center gap-3 rounded-[var(--vs-radius)] px-3 py-2 text-sm font-medium transition {{ request()->is('settings*') ? 'vs-bg-primary-light vs-text-primary' : 'text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800' }}"
                 >
-                    @svg('cog-6-tooth', 'w-4 h-4')
+                    @svg('ph-gear', 'w-4 h-4')
                     Settings
                 </a>
             @endif
@@ -82,8 +80,12 @@
                 @click="dark = !dark"
                 class="flex w-full items-center gap-3 rounded-[var(--vs-radius)] px-3 py-2 text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition"
             >
-                <svg x-show="!dark" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
-                <svg x-show="dark" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" style="display:none"><path d="M10 2a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 2zM10 15a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 15zM10 7a3 3 0 100 6 3 3 0 000-6zM15.657 5.404a.75.75 0 10-1.06-1.06l-1.061 1.06a.75.75 0 001.06 1.06l1.06-1.06zM6.464 14.596a.75.75 0 10-1.06-1.06l-1.06 1.06a.75.75 0 101.06 1.06l1.06-1.06zM18 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0118 10zM5 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 015 10zM14.596 14.596a.75.75 0 001.06-1.06l-1.06-1.06a.75.75 0 00-1.06 1.06l1.06 1.06zM5.404 5.404a.75.75 0 001.06-1.06l-1.06-1.06a.75.75 0 10-1.06 1.06l1.06 1.06z"/></svg>
+                <template x-if="!dark">
+                    @svg('ph-moon', 'w-4 h-4')
+                </template>
+                <template x-if="dark">
+                    @svg('ph-sun', 'w-4 h-4')
+                </template>
                 <span x-text="dark ? 'Light Mode' : 'Dark Mode'"></span>
             </button>
 
@@ -100,7 +102,7 @@
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
                 <button type="submit" class="flex w-full items-center gap-3 rounded-[var(--vs-radius)] px-3 py-2 text-sm font-medium text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition">
-                    @svg('arrow-right-on-rectangle', 'w-4 h-4')
+                    @svg('ph-sign-out', 'w-4 h-4')
                     Log out
                 </button>
             </form>

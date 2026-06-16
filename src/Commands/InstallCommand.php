@@ -83,6 +83,9 @@ class InstallCommand extends Command
         if (! class_exists(\Livewire\LivewireServiceProvider::class)) {
             $missing[] = 'livewire/livewire';
         }
+        if (! class_exists(\Codeat3\BladePhosphorIcons\BladePhosphorIconsServiceProvider::class)) {
+            $missing[] = 'codeat3/blade-phosphor-icons';
+        }
 
         if (! empty($missing)) {
             $this->error('Missing required packages. Please install them first:');

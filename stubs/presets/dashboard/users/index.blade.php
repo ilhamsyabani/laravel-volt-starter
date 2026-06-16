@@ -41,7 +41,7 @@ $changeRole = function (User $user, string $role) {
 };
 ?>
 
-<x-layouts.app>
+<x-layouts.app title="Users">
     <div class="space-y-6">
 
         {{-- Header --}}
@@ -50,7 +50,7 @@ $changeRole = function (User $user, string $role) {
                 <h1 class="text-2xl font-bold text-zinc-900 dark:text-white">Users</h1>
                 <p class="mt-1 text-sm text-zinc-500">Manage system users and roles</p>
             </div>
-            <x-ui.button icon="user-plus">Add User</x-ui.button>
+            <x-ui.button icon="ph-user-plus">Add User</x-ui.button>
         </div>
 
         {{-- Stats Cards --}}
@@ -58,7 +58,7 @@ $changeRole = function (User $user, string $role) {
             <x-ui.card :padding="false">
                 <div class="p-4 flex items-center gap-4">
                     <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600">
-                        @svg('users', 'w-5 h-5')
+                        @svg('ph-users', 'w-5 h-5')
                     </div>
                     <div>
                         <p class="text-xs text-zinc-500">Total Users</p>
@@ -70,7 +70,7 @@ $changeRole = function (User $user, string $role) {
             <x-ui.card :padding="false">
                 <div class="p-4 flex items-center gap-4">
                     <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-100 dark:bg-amber-900/30 text-amber-600">
-                        @svg('shield-check', 'w-5 h-5')
+                        @svg('ph-shield-check', 'w-5 h-5')
                     </div>
                     <div>
                         <p class="text-xs text-zinc-500">Admins</p>
@@ -82,7 +82,7 @@ $changeRole = function (User $user, string $role) {
             <x-ui.card :padding="false">
                 <div class="p-4 flex items-center gap-4">
                     <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600">
-                        @svg('user', 'w-5 h-5')
+                        @svg('ph-user', 'w-5 h-5')
                     </div>
                     <div>
                         <p class="text-xs text-zinc-500">Regular Users</p>
@@ -94,7 +94,7 @@ $changeRole = function (User $user, string $role) {
             <x-ui.card :padding="false">
                 <div class="p-4 flex items-center gap-4">
                     <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100 dark:bg-purple-900/30 text-purple-600">
-                        @svg('user-plus', 'w-5 h-5')
+                        @svg('ph-user-plus', 'w-5 h-5')
                     </div>
                     <div>
                         <p class="text-xs text-zinc-500">New This Month</p>
@@ -108,7 +108,7 @@ $changeRole = function (User $user, string $role) {
         <x-ui.card :padding="false">
             <div class="p-4 flex flex-wrap gap-4">
                 <div class="flex-1 min-w-[200px]">
-                    <x-ui.input wire:model.live.debounce.300ms="search" placeholder="Search users..." icon="magnifying-glass" />
+                    <x-ui.input wire:model.live.debounce.300ms="search" placeholder="Search users..." icon="ph-magnifying-glass" />
                 </div>
                 <div class="flex gap-2">
                     <x-ui.button size="sm" :variant="$role === '' ? 'primary' : 'secondary'" wire:click="$set('role', '')">
@@ -163,7 +163,7 @@ $changeRole = function (User $user, string $role) {
                                     {{-- Role Dropdown --}}
                                     <x-ui.dropdown align="right">
                                         <x-slot:trigger>
-                                            <x-ui.button size="sm" variant="ghost" icon="chevron-down">
+                                            <x-ui.button size="sm" variant="ghost" icon="ph-caret-down">
                                                 Change Role
                                             </x-ui.button>
                                         </x-slot:trigger>
@@ -178,10 +178,10 @@ $changeRole = function (User $user, string $role) {
                                         </x-ui.dropdown-item>
                                     </x-ui.dropdown>
 
-                                    <x-ui.button size="sm" variant="ghost" href="/admin/users/{{ $user->id }}/edit" wire:navigate icon="pencil">
+                                    <x-ui.button size="sm" variant="ghost" href="/admin/users/{{ $user->id }}/edit" wire:navigate icon="ph-pencil">
                                         Edit
                                     </x-ui.button>
-                                    <x-ui.button size="sm" variant="danger" wire:click="delete({{ $user->id }})" icon="trash">
+                                    <x-ui.button size="sm" variant="danger" wire:click="delete({{ $user->id }})" icon="ph-trash">
                                         Delete
                                     </x-ui.button>
                                 </div>
@@ -189,7 +189,7 @@ $changeRole = function (User $user, string $role) {
                         </x-ui.table.row>
                     @empty
                         <x-ui.table.empty colspan="4">
-                            <x-ui.empty-state icon="users" title="No users found" subtitle="Try adjusting your search or filters." />
+                            <x-ui.empty-state icon="ph-users" title="No users found" subtitle="Try adjusting your search or filters." />
                         </x-ui.table.empty>
                     @endforelse
                 </tbody>

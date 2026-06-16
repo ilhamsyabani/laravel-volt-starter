@@ -1,6 +1,7 @@
 <?php
 
 use function Livewire\Volt\{state, computed};
+use function Laravel\Folio\middleware;
 
 middleware(['auth', 'verified']);
 
@@ -9,15 +10,14 @@ $stats = computed(function () {
         [
             'label' => 'Total Users',
             'value' => \App\Models\User::count(),
-            'icon'  => 'users',
+            'icon'  => 'ph-users',
         ],
     ];
 });
 
 ?>
 
-<x-layouts.app>
-@volt('dashboard')
+<x-layouts.app title="Dashboard">
     <div class="space-y-8">
 
         {{-- Page header --}}
@@ -50,18 +50,17 @@ $stats = computed(function () {
         {{-- Quick actions --}}
         <x-ui.card title="Quick Actions">
             <div class="flex flex-wrap gap-3">
-                <x-ui.button href="/users" icon="users">
+                <x-ui.button href="/users" icon="ph-users">
                     Manage Users
                 </x-ui.button>
-                <x-ui.button href="/settings/profile" icon="user" variant="ghost">
+                <x-ui.button href="/settings/profile" icon="ph-user" variant="ghost">
                     Edit Profile
                 </x-ui.button>
-                <x-ui.button href="/showcase" icon="swatch" variant="secondary">
+                <x-ui.button href="/showcase" icon="ph-palette" variant="secondary">
                     Component Showcase
                 </x-ui.button>
             </div>
         </x-ui.card>
 
     </div>
-@endvolt
 </x-layouts.app>

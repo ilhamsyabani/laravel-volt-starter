@@ -52,7 +52,7 @@ $updatePassword = function () {
 
 ?>
 
-<x-layouts.app>
+<x-layouts.app title="Profile Settings">
     <div class="max-w-2xl space-y-8">
 
         <div>
