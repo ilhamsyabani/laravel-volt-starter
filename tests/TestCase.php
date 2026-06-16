@@ -9,14 +9,7 @@ class TestCase extends Orchestra
 {
     protected function getPackageProviders($app): array
     {
-        return [
-            VoltStarterServiceProvider::class,
-        ];
-    }
-
-    protected function getApplicationEnvironment($app): void
-    {
-        $app['config']->set('database.default', 'testing');
+        return [VoltStarterServiceProvider::class];
     }
 
     public function getEnvironmentSetUp($app): void
