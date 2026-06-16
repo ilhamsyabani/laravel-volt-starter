@@ -5,11 +5,16 @@ on:
     tags:
       - 'v*'
 
+# Add this permissions block
+permissions:
+  contents: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+      
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
