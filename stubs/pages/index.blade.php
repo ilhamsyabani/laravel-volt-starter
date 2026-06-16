@@ -1,7 +1,5 @@
 <?php
 
-use function Livewire\Volt\{state};
-
 // Redirect ke dashboard jika sudah login
 if (auth()->check()) {
     return redirect()->route('dashboard');
