@@ -30,6 +30,7 @@ class VoltStarterServiceProvider extends PackageServiceProvider
         $this->publishes([
             $stubsPath . '/layouts/app.blade.php'         => resource_path('views/components/layouts/app.blade.php'),
             $stubsPath . '/layouts/app/sidebar.blade.php' => resource_path('views/components/layouts/app/sidebar.blade.php'),
+            $stubsPath . '/layouts/auth.blade.php'        => resource_path('views/components/layouts/auth.blade.php'),
         ], 'volt-starter-layouts');
 
         // UI Components Tier 1
@@ -78,12 +79,10 @@ class VoltStarterServiceProvider extends PackageServiceProvider
             $stubsPath . '/pages/dashboard.blade.php' => resource_path('views/pages/dashboard.blade.php'),
         ], 'volt-starter-dashboard');
 
-        // Auth pages + Volt components
+        // Auth pages
         $this->publishes([
             $stubsPath . '/pages/auth/login.blade.php'    => resource_path('views/pages/auth/login.blade.php'),
             $stubsPath . '/pages/auth/register.blade.php' => resource_path('views/pages/auth/register.blade.php'),
-            $stubsPath . '/components/auth/login-form.blade.php'    => resource_path('views/components/auth/login-form.blade.php'),
-            $stubsPath . '/components/auth/register-form.blade.php' => resource_path('views/components/auth/register-form.blade.php'),
         ], 'volt-starter-auth');
 
         // Settings + role system

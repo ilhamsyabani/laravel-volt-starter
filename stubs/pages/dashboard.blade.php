@@ -17,6 +17,7 @@ $stats = computed(function () {
 ?>
 
 <x-layouts.app>
+@volt('dashboard')
     <div class="space-y-8">
 
         {{-- Page header --}}
@@ -62,4 +63,5 @@ $stats = computed(function () {
         </x-ui.card>
 
     </div>
+@endvolt
 </x-layouts.app>
