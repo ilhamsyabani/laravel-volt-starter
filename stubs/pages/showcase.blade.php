@@ -13,7 +13,24 @@ state([
     'radio_value'    => 'option-a',
     'toggle1'        => true,
     'toggle2'        => false,
+    'sortField'      => 'name',
+    'sortDirection'  => 'asc',
 ]);
+
+$demoUsers = [
+    ['name' => 'Budi Santoso',   'email' => 'budi@example.com',   'role' => 'Admin',     'status' => 'active'],
+    ['name' => 'Siti Aminah',    'email' => 'siti@example.com',   'role' => 'User',      'status' => 'active'],
+    ['name' => 'Rudi Hartono',   'email' => 'rudi@example.com',   'role' => 'User',      'status' => 'inactive'],
+];
+
+$sortBy = function (string $field) {
+    if ($this->sortField === $field) {
+        $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+        $this->sortField = $field;
+        $this->sortDirection = 'asc';
+    }
+};
 
 $showError = false;
 
@@ -181,6 +198,149 @@ $triggerToast = function (string $type) {
             <div class="relative mt-4 h-24 rounded-[var(--vs-radius)] border border-dashed border-zinc-300 dark:border-zinc-600">
                 <x-ui.spinner overlay label="Loading..." />
             </div>
+        </x-ui.card>
+
+        {{-- ════════ TIER 2 ════════ --}}
+
+        {{-- Breadcrumb --}}
+        <x-ui.card title="Breadcrumb">
+            <x-ui.breadcrumb :items="[
+                ['label' => 'Dashboard', 'href' => '/dashboard'],
+                ['label' => 'Surveys', 'href' => '/surveys'],
+                ['label' => 'Edit Survey'],
+            ]" />
+        </x-ui.card>
+
+        {{-- Avatar --}}
+        <x-ui.card title="Avatar">
+            <div class="flex items-center gap-4">
+                <x-ui.avatar name="Budi Santoso" size="xs" />
+                <x-ui.avatar name="Siti Aminah" size="sm" status="online" />
+                <x-ui.avatar name="Rudi Hartono" size="md" status="busy" />
+                <x-ui.avatar name="Andi Wijaya" size="lg" status="away" />
+                <x-ui.avatar name="Eka Putri" size="xl" status="offline" />
+            </div>
+        </x-ui.card>
+
+        {{-- Tooltip --}}
+        <x-ui.card title="Tooltip" subtitle="Hover elemen di bawah">
+            <div class="flex items-center gap-4">
+                <x-ui.tooltip text="Edit data ini" position="top">
+                    <x-ui.button variant="ghost" icon="pencil" size="sm" />
+                </x-ui.tooltip>
+                <x-ui.tooltip text="Hapus secara permanen" position="bottom">
+                    <x-ui.button variant="ghost" icon="trash" size="sm" />
+                </x-ui.tooltip>
+                <x-ui.tooltip text="Lihat detail lengkap" position="right">
+                    <x-ui.badge color="primary">Info</x-ui.badge>
+                </x-ui.tooltip>
+            </div>
+        </x-ui.card>
+
+        {{-- Tabs --}}
+        <x-ui.card title="Tabs">
+            <x-ui.tabs :tabs="['general' => 'General', 'security' => 'Security', 'notifications' => 'Notifications']" default="general">
+                <x-slot:general>
+                    <p class="text-sm text-zinc-500">Pengaturan umum aplikasi ditampilkan di sini.</p>
+                </x-slot:general>
+                <x-slot:security>
+                    <p class="text-sm text-zinc-500">Pengaturan keamanan, ganti password, 2FA.</p>
+                </x-slot:security>
+                <x-slot:notifications>
+                    <p class="text-sm text-zinc-500">Atur preferensi notifikasi email & push.</p>
+                </x-slot:notifications>
+            </x-ui.tabs>
+        </x-ui.card>
+
+        {{-- Table --}}
+        <x-ui.card title="Table" subtitle="Dengan sortable header dan empty state" :padding="false">
+            <div class="p-6 pt-0">
+                <x-ui.table>
+                    <x-slot:head>
+                        <x-ui.table.th sortable wire:click="sortBy('name')" :direction="$sortField === 'name' ? $sortDirection : null">Name</x-ui.table.th>
+                        <x-ui.table.th>Email</x-ui.table.th>
+                        <x-ui.table.th>Role</x-ui.table.th>
+                        <x-ui.table.th align="center">Status</x-ui.table.th>
+                        <x-ui.table.th align="right">Actions</x-ui.table.th>
+                    </x-slot:head>
+
+                    @forelse ($demoUsers as $user)
+                        <x-ui.table.row>
+                            <x-ui.table.td>
+                                <div class="flex items-center gap-2">
+                                    <x-ui.avatar :name="$user['name']" size="xs" />
+                                    {{ $user['name'] }}
+                                </div>
+                            </x-ui.table.td>
+                            <x-ui.table.td>{{ $user['email'] }}</x-ui.table.td>
+                            <x-ui.table.td>{{ $user['role'] }}</x-ui.table.td>
+                            <x-ui.table.td align="center">
+                                <x-ui.badge :color="$user['status'] === 'active' ? 'green' : 'zinc'" dot>
+                                    {{ ucfirst($user['status']) }}
+                                </x-ui.badge>
+                            </x-ui.table.td>
+                            <x-ui.table.td align="right">
+                                <x-ui.dropdown align="right">
+                                    <x-slot:trigger>
+                                        <x-ui.button variant="ghost" size="sm" icon="ellipsis-horizontal" />
+                                    </x-slot:trigger>
+                                    <x-ui.dropdown-item icon="pencil">Edit</x-ui.dropdown-item>
+                                    <x-ui.dropdown-item icon="eye">View</x-ui.dropdown-item>
+                                    <x-ui.dropdown-item icon="trash" danger>Delete</x-ui.dropdown-item>
+                                </x-ui.dropdown>
+                            </x-ui.table.td>
+                        </x-ui.table.row>
+                    @empty
+                        <x-ui.table.empty colspan="5" icon="users" title="No users found" message="Try adjusting your search filters." />
+                    @endforelse
+                </x-ui.table>
+            </div>
+        </x-ui.card>
+
+        {{-- Modal --}}
+        <x-ui.card title="Modal / Dialog">
+            <div class="flex flex-wrap gap-3">
+                <x-ui.button @click="$dispatch('open-modal', { name: 'demo-modal' })">
+                    Open Modal
+                </x-ui.button>
+            </div>
+
+            <x-ui.modal name="demo-modal" title="Confirm Action" maxWidth="sm">
+                <p class="text-sm text-zinc-600 dark:text-zinc-300">
+                    Apakah Anda yakin ingin melanjutkan tindakan ini? Tindakan ini tidak dapat dibatalkan.
+                </p>
+                <x-slot:footer>
+                    <x-ui.button variant="secondary" @click="$dispatch('close-modal')">Cancel</x-ui.button>
+                    <x-ui.button variant="danger">Confirm</x-ui.button>
+                </x-slot:footer>
+            </x-ui.modal>
+        </x-ui.card>
+
+        {{-- Skeleton --}}
+        <x-ui.card title="Skeleton Loading">
+            <div class="space-y-6">
+                <div>
+                    <p class="text-xs font-semibold text-zinc-400 uppercase tracking-wide mb-2">Text lines</p>
+                    <x-ui.skeleton type="text" :lines="3" />
+                </div>
+                <div class="flex items-center gap-3">
+                    <x-ui.skeleton type="avatar" />
+                    <x-ui.skeleton type="text" :lines="2" class="flex-1" />
+                </div>
+                <div>
+                    <p class="text-xs font-semibold text-zinc-400 uppercase tracking-wide mb-2">Card</p>
+                    <x-ui.skeleton type="card" />
+                </div>
+            </div>
+        </x-ui.card>
+
+        {{-- Empty State --}}
+        <x-ui.card title="Empty State">
+            <x-ui.empty-state icon="document-text" title="No surveys yet" message="Create your first survey to get started.">
+                <x-slot:actions>
+                    <x-ui.button variant="primary" icon="plus" size="sm">Create Survey</x-ui.button>
+                </x-slot:actions>
+            </x-ui.empty-state>
         </x-ui.card>
 
         {{-- Theme switcher demo --}}

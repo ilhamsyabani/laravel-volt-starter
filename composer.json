@@ -1,11 +1,22 @@
 {
     "name": "ilhamsyabani/laravel-volt-starter",
-    "description": "A modern Laravel starter kit using Livewire Volt, Laravel Folio, and Tailwind CSS — 20+ UI components, theming system, CRUD generators included.",
+    "description": "A modern, MIT-licensed Laravel starter kit using Livewire Volt, Laravel Folio, and Tailwind CSS — 20+ custom UI components, theming system, and CRUD generators included.",
     "keywords": [
-        "laravel", "livewire", "volt", "folio",
-        "tailwind", "ui-kit", "starter-kit",
-        "boilerplate", "theme", "blade", "php",
-        "components", "crud", "admin", "dashboard"
+        "laravel",
+        "livewire",
+        "volt",
+        "folio",
+        "tailwind",
+        "ui-kit",
+        "starter-kit",
+        "boilerplate",
+        "theme",
+        "blade",
+        "php",
+        "components",
+        "crud",
+        "admin",
+        "dashboard"
     ],
     "homepage": "https://github.com/ilhamsyabani/laravel-volt-starter",
     "license": "MIT",
@@ -35,7 +46,7 @@
     },
     "suggest": {
         "livewire/livewire": "Required for Volt components (^3.0)",
-        "livewire/volt": "Required for single-file Volt components (^1.0)",
+        "livewire/volt": "Required for single-file Volt components (^1.1)",
         "laravel/folio": "Required for file-based routing (^1.0)"
     },
     "autoload": {
