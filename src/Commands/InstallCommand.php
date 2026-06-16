@@ -12,6 +12,7 @@ class InstallCommand extends Command
                         {--roles : Include role & permission system}
                         {--showcase : Include component showcase page}
                         {--full : Install everything (auth + roles + showcase)}
+                        {--folio : Setup Folio routing automatically}
                         {--force : Overwrite existing files}';
 
     public $description = 'Install Laravel Volt Starter Kit into your application';

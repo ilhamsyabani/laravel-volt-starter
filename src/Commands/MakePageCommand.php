@@ -10,6 +10,8 @@ class MakePageCommand extends Command
     public $signature = 'volt-starter:page
                         {name : The name of the page (e.g. users/index)}
                         {--auth : Add auth middleware}
+                        {--admin : Add admin role middleware}
+                        {--superadmin : Add superadmin role middleware}
                         {--bare : No boilerplate, just a blank Volt component}';
 
     public $description = 'Generate a new Livewire Volt + Folio page';

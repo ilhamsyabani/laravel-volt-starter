@@ -10,6 +10,7 @@ class MakeCrudCommand extends Command
     public $signature = 'volt-starter:crud
                         {model : Model name (e.g. Post, Product)}
                         {--fields= : Comma-separated fields (e.g. title:string,body:text,published:boolean)}
+                        {--with-migration : Also generate a migration file}
                         {--force : Overwrite existing files}';
 
     public $description = 'Generate full CRUD pages (index, create, edit, show) for a model';
