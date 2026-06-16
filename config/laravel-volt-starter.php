@@ -4,29 +4,113 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Theme
+    | Default Theme
     |--------------------------------------------------------------------------
-    | CSS class applied to <html> tag for color theming.
-    | Available: '' (default/indigo), 'theme-rose', 'theme-emerald',
-    |            'theme-amber', 'theme-sky', or your own custom theme class.
+    |
+    | The default theme to use. Available themes:
+    | - default (indigo)
+    | - rose
+    | - emerald
+    | - amber
+    | - sky
+    |
     */
-    'theme' => env('VOLT_STARTER_THEME', ''),
+    'theme' => env('VOLT_STARTER_THEME', 'default'),
 
     /*
     |--------------------------------------------------------------------------
-    | Roles
+    | Default Layout
     |--------------------------------------------------------------------------
-    | Available roles for the HasRoles trait.
+    |
+    | The default layout component to use.
+    |
+    */
+    'layout' => env('VOLT_STARTER_LAYOUT', 'layouts.app'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Sidebar Configuration
+    |--------------------------------------------------------------------------
+    */
+    'sidebar' => [
+        'logo' => env('VOLT_STARTER_LOGO', null),
+        'title' => env('APP_NAME', 'Laravel'),
+        'width' => '64', // 64 = w-64
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Pagination
+    |--------------------------------------------------------------------------
+    */
+    'pagination' => [
+        'per_page' => 10,
+        'per_page_options' => [10, 25, 50, 100],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Toast Notifications
+    |--------------------------------------------------------------------------
+    */
+    'toast' => [
+        'duration' => 4000, // milliseconds
+        'position' => 'bottom-right', // bottom-right, bottom-left, top-right, top-left
+        'max_toasts' => 5,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Default Middleware
+    |--------------------------------------------------------------------------
+    */
+    'middleware' => [
+        'auth' => ['auth', 'verified'],
+        'admin' => ['auth', 'verified', 'role:admin'],
+        'superadmin' => ['auth', 'verified', 'role:superadmin'],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Default Roles
+    |--------------------------------------------------------------------------
+    |
+    | Available roles for the HasRoles trait and VoltUser abstract.
     | The order here defines the hierarchy (lowest to highest).
     */
-    'roles' => ['user', 'admin', 'superadmin'],
+    'roles' => [
+        'superadmin',
+        'admin',
+        'user',
+    ],
 
     /*
     |--------------------------------------------------------------------------
     | Default Role
     |--------------------------------------------------------------------------
+    |
     | The default role assigned to new users.
     */
     'default_role' => env('VOLT_STARTER_DEFAULT_ROLE', 'user'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Dark Mode
+    |--------------------------------------------------------------------------
+    */
+    'dark_mode' => [
+        'enabled' => true,
+        'default' => 'system', // light, dark, system
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | API Configuration
+    |--------------------------------------------------------------------------
+    */
+    'api' => [
+        'prefix' => 'api',
+        'version' => 'v1',
+    ],
 
 ];

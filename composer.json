@@ -42,12 +42,16 @@
         "nunomaduro/collision": "^8.0",
         "orchestra/testbench": "^9.0|^10.0|^11.0",
         "pestphp/pest": "^3.0",
-        "pestphp/pest-plugin-laravel": "^3.0"
+        "pestphp/pest-plugin-laravel": "^3.0",
+        "livewire/livewire": "^4.0",
+        "livewire/volt": "^1.10",
+        "laravel/folio": "^1.0"
     },
     "suggest": {
-        "livewire/livewire": "Required for Volt components (^3.0)",
-        "livewire/volt": "Required for single-file Volt components (^1.1)",
-        "laravel/folio": "Required for file-based routing (^1.0)"
+        "livewire/livewire": "Required for Volt components (^4.0)",
+        "livewire/volt": "Required for single-file Volt components (^1.10)",
+        "laravel/folio": "Required for file-based routing (^1.0)",
+        "codeat3/blade-phosphor-icons": "Required for icon components (^1.0)"
     },
     "autoload": {
         "psr-4": {

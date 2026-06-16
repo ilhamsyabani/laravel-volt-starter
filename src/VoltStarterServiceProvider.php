@@ -7,6 +7,7 @@ use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Ilhamsyabani\VoltStarter\Commands\InstallCommand;
 use Ilhamsyabani\VoltStarter\Commands\MakePageCommand;
 use Ilhamsyabani\VoltStarter\Commands\MakeCrudCommand;
+use Ilhamsyabani\VoltStarter\Commands\PresetCommand;
 
 class VoltStarterServiceProvider extends PackageServiceProvider
 {
@@ -19,11 +20,14 @@ class VoltStarterServiceProvider extends PackageServiceProvider
                 InstallCommand::class,
                 MakePageCommand::class,
                 MakeCrudCommand::class,
+                PresetCommand::class,
             ]);
     }
 
     public function packageBooted(): void
     {
+        // Register FolioServiceProvider for file-based routing
+        $this->app->register(FolioServiceProvider::class);
         $stubsPath = __DIR__ . '/../stubs';
 
         // Layouts

@@ -59,7 +59,7 @@ trait Sortable
 
         return $this->sortDirection === 'asc'
             ? 'vs-text-primary'
-            : 'vs-text-primary';
+            : 'vs-text-muted';
     }
 
     /**

@@ -8,15 +8,20 @@ use Illuminate\Support\Facades\File;
 /**
  * Preset Command - Quick starter templates
  *
+ * Available presets:
+ *   - blog:       Complete blog with posts, categories, tags, and comments
+ *   - dashboard:  Admin panel with users, roles, and analytics
+ *   - saas:       Multi-tenant SaaS (coming soon)
+ *   - api:        RESTful API (coming soon)
+ *
  * Usage:
  *   php artisan volt-starter:preset blog
- *   php artisan volt-starter:preset saas
  *   php artisan volt-starter:preset dashboard
  */
 class PresetCommand extends Command
 {
     public $signature = 'volt-starter:preset
-                        {preset : The preset to install (blog|saas|dashboard|api)}
+                        {preset : The preset to install (blog|dashboard)}
                         {--force : Overwrite existing files}';
 
     public $description = 'Install a preset starter template';
@@ -72,15 +77,26 @@ class PresetCommand extends Command
     {
         $preset = $this->argument('preset');
 
+        // Validate preset is available
+        $availablePresets = array_keys($this->presets);
+
         if (!isset($this->presets[$preset])) {
             $this->error("Unknown preset: {$preset}");
             $this->newLine();
             $this->info('Available presets:');
 
             foreach ($this->presets as $key => $data) {
-                $this->line("  • <comment>{$key}</comment> - {$data['description']}");
+                $status = in_array($key, ['blog', 'dashboard']) ? '' : ' (coming soon)';
+                $this->line("  • <comment>{$key}</comment> - {$data['description']}{$status}");
             }
 
+            return self::FAILURE;
+        }
+
+        // Check if preset is ready
+        $stubPath = __DIR__ . '/../../stubs/presets/' . $preset;
+        if (!is_dir($stubPath) || empty(array_diff(scandir($stubPath), ['.', '..']))) {
+            $this->warn("⚠️  Preset '{$preset}' is not yet available. Check back in a future release.");
             return self::FAILURE;
         }
 
