@@ -26,7 +26,7 @@ $stats = computed(function () {
                 Welcome back, {{ auth()->user()->name }} 👋
             </h1>
             <p class="mt-1 text-sm text-zinc-500">
-                Here's what's happening in your app today.
+                Here's what's happening in your apps today.
             </p>
         </div>
 
