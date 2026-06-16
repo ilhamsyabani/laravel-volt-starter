@@ -12,10 +12,25 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ['8.2', '8.3', '8.4']
-        laravel: ['11.*', '12.*', '13.*']
-        exclude:
+        include:
+          # Laravel 11 — PHP 8.2, 8.3, 8.4
           - php: '8.2'
+            laravel: '11.*'
+          - php: '8.3'
+            laravel: '11.*'
+          - php: '8.4'
+            laravel: '11.*'
+          # Laravel 12 — PHP 8.2, 8.3, 8.4
+          - php: '8.2'
+            laravel: '12.*'
+          - php: '8.3'
+            laravel: '12.*'
+          - php: '8.4'
+            laravel: '12.*'
+          # Laravel 13 — PHP 8.3, 8.4 only (requires ^8.3)
+          - php: '8.3'
+            laravel: '13.*'
+          - php: '8.4'
             laravel: '13.*'
 
     name: PHP ${{ matrix.php }} — Laravel ${{ matrix.laravel }}
@@ -30,9 +45,17 @@ jobs:
           extensions: dom, curl, libxml, mbstring, zip, pdo, sqlite, pdo_sqlite
           coverage: none
 
-      - name: Install dependencies
+      - name: Install dependencies (Laravel 11 & 12)
+        if: ${{ !startsWith(matrix.laravel, '13') }}
         run: |
           composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
+          composer update --prefer-dist --no-interaction --prefer-stable
+
+      - name: Install dependencies (Laravel 13 — without pest-plugin-laravel)
+        if: ${{ startsWith(matrix.laravel, '13') }}
+        run: |
+          composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
+          composer remove pestphp/pest-plugin-laravel --no-interaction --no-update --dev
           composer update --prefer-dist --no-interaction --prefer-stable
 
       - name: Run tests
