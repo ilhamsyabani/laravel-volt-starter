@@ -72,6 +72,7 @@ abstract class VoltUser extends Authenticatable
 
     /**
      * Check if user has a specific role.
+     * Supports hierarchy-based checking (user can access lower roles).
      *
      * @param string|array $roles Single role or array of roles
      */
@@ -81,7 +82,26 @@ abstract class VoltUser extends Authenticatable
             $roles = [$roles];
         }
 
-        return in_array($this->{$this->roleColumn}, $roles);
+        $allRoles = array_reverse(static::roles());
+        $userRoleIndex = array_search($this->{$this->roleColumn}, $allRoles);
+
+        if ($userRoleIndex === false) {
+            return in_array($this->{$this->roleColumn}, $roles);
+        }
+
+        foreach ($roles as $role) {
+            $requiredRoleIndex = array_search($role, $allRoles);
+
+            if ($requiredRoleIndex !== false && $userRoleIndex >= $requiredRoleIndex) {
+                return true;
+            }
+
+            if ($this->{$this->roleColumn} === $role) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -94,8 +114,6 @@ abstract class VoltUser extends Authenticatable
 
     /**
      * Check if user has all of the given roles.
-     * Note: A user typically has only one role, so this returns true only if
-     * the given roles array contains exactly the user's current role.
      */
     public function hasAllRoles(string|array $roles): bool
     {
@@ -103,7 +121,13 @@ abstract class VoltUser extends Authenticatable
             $roles = [$roles];
         }
 
-        return in_array($this->{$this->roleColumn}, $roles) && count($roles) === 1;
+        foreach ($roles as $role) {
+            if (! $this->hasRole($role)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**

@@ -15,19 +15,26 @@ class VoltStarterServiceProvider extends PackageServiceProvider
     {
         $package
             ->name('laravel-volt-starter')
-            ->hasConfigFile()
-            ->hasCommands([
+            ->hasConfigFile();
+    }
+
+    public function packageBooted(): void
+    {
+        // ✅ Commands hanya diregistrasi saat console, dan PresetCommand ikut didaftarkan
+        if ($this->app->runningInConsole()) {
+            $this->commands([
                 InstallCommand::class,
                 MakePageCommand::class,
                 MakeCrudCommand::class,
                 PresetCommand::class,
             ]);
-    }
+        }
 
-    public function packageBooted(): void
-    {
-        // Register FolioServiceProvider for file-based routing
-        $this->app->register(FolioServiceProvider::class);
+        // ✅ FolioServiceProvider TIDAK di-register otomatis dari sini.
+        // Folio routing didaftarkan oleh user sendiri setelah menjalankan:
+        //   php artisan volt-starter:install --folio
+        // yang akan mempublish routes/folio.php dan mendaftarkannya ke bootstrap/app.php.
+
         $stubsPath = __DIR__ . '/../stubs';
 
         // Layouts
@@ -77,7 +84,7 @@ class VoltStarterServiceProvider extends PackageServiceProvider
             $stubsPath . '/css/volt-starter.css' => resource_path('css/volt-starter.css'),
         ], 'volt-starter-theme');
 
-        // Core pages: landing + dashboard
+        // Core pages
         $this->publishes([
             $stubsPath . '/pages/index.blade.php'     => resource_path('views/pages/index.blade.php'),
             $stubsPath . '/pages/dashboard.blade.php' => resource_path('views/pages/dashboard.blade.php'),
@@ -94,7 +101,7 @@ class VoltStarterServiceProvider extends PackageServiceProvider
             $stubsPath . '/pages/settings/profile.blade.php' => resource_path('views/pages/settings/profile.blade.php'),
         ], 'volt-starter-roles');
 
-        // Migration role column
+        // Migration
         $this->publishes([
             $stubsPath . '/migrations/add_role_to_users_table.php' => database_path('migrations/' . date('Y_m_d_His') . '_add_role_to_users_table.php'),
         ], 'volt-starter-migrations');
@@ -106,7 +113,7 @@ class VoltStarterServiceProvider extends PackageServiceProvider
 
         // Framework setup files (Folio + Volt + AppServiceProvider)
         $this->publishes([
-            $stubsPath . '/routes/folio.php'          => base_path('routes/folio.php'),
+            $stubsPath . '/routes/folio.php'           => base_path('routes/folio.php'),
             $stubsPath . '/app/AppServiceProvider.php' => app_path('Providers/AppServiceProvider.php'),
             $stubsPath . '/bootstrap/app.php'          => base_path('bootstrap/app.php'),
         ], 'volt-starter-setup');

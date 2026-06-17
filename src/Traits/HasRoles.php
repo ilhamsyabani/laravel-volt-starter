@@ -70,7 +70,26 @@ trait HasRoles
             $roles = [$roles];
         }
 
-        return in_array($this->{$this->roleColumn}, $roles);
+        $allRoles = $this->roles();
+        $userRoleIndex = array_search($this->{$this->roleColumn}, $allRoles);
+
+        if ($userRoleIndex === false) {
+            return in_array($this->{$this->roleColumn}, $roles);
+        }
+
+        foreach ($roles as $role) {
+            $requiredRoleIndex = array_search($role, $allRoles);
+
+            if ($requiredRoleIndex !== false && $userRoleIndex >= $requiredRoleIndex) {
+                return true;
+            }
+
+            if ($this->{$this->roleColumn} === $role) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -90,7 +109,13 @@ trait HasRoles
             $roles = [$roles];
         }
 
-        return empty(array_diff($roles, [$this->{$this->roleColumn}]));
+        foreach ($roles as $role) {
+            if (! $this->hasRole($role)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
